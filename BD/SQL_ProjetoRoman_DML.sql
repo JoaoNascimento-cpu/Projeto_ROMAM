@@ -16,6 +16,16 @@ values				(1,'saulo@gmail.com','123','Saulo'),
 					(1,'Paulo@gmail.com','123','PauloBrandão')            
 Go
 
+insert into Tema (TituloTema, idUsuario) 
+values					('Gestão', 1)
+					   ,('LGPD',   2)
+					   ,('Desenvolvimento Web', 3)
+go
+
+insert into Projeto (IdTema, idUsuario, Projeto)
+values				(1, 1, 'Projeto de Controle de Estoque')
+				   ,(2, 2, 'Lei a favor da segurança dos consumidores')
+				   ,(3, 3, 'Qual linguagem Web está mais em alta?')
 
 
 

@@ -26,13 +26,15 @@ Go
 
 Create Table Tema (
 	IdTema int primary key identity,
-	TituloTema varchar(100) unique not null
+	TituloTema varchar(100) unique not null,
+	idUsuario int foreign key references Usuario(idUsuario)
 );
 Go
 
 Create Table Projeto (
 	IdProjeto int primary key identity,
 	IdTema int Foreign key references Tema(IdTema),
-	Projeto varchar(200) Unique not null
+	Projeto varchar(200) Unique not null,
+	idUsuario int foreign key references Usuario(idUsuario)
 );
 Go
