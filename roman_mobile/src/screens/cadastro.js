@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, TextInput, Image, Text, TouchableOpacity, View } from 'react-native';
+import api from '../services/api';
 
 export default class Cadastro extends Component
 {
@@ -7,7 +9,44 @@ export default class Cadastro extends Component
     {
         super(props);
         this.state = {
+            tema: 0,
+            projeto: '',
+        }
+    }
 
+    cadastro = async () =>{
+        try {
+            const valorToken = await AsyncStorage.getItem('userToken')
+
+            console.warn(valorToken)
+
+             const resp = await api.post('/projetos', {
+
+                 idTema : this.state.tema,
+                 projeto1: this.state.projeto,
+
+                },
+                {
+                    headers: {
+                        'Authorization' : 'Bearer ' + valorToken
+                    }
+                }
+                );
+
+        } catch (error) {
+            console.warn(error)
+        }
+    }
+
+    logout = async () => {
+
+        try {
+            
+            await AsyncStorage.removeItem('userToken');
+            this.props.navigation.navigate('login');
+
+        } catch (error) {
+            console.warn(error)
         }
     }
 
@@ -51,26 +90,23 @@ export default class Cadastro extends Component
                     <View style={styles.backInput}>
                         <View style={styles.inputMeio}>
                             <Text style={styles.inputText}>Tema</Text>
-                            <Text style={styles.inputText}>Tarefa</Text>
-                            <Text style={styles.inputText}>Professor</Text>
-                            
+                            <Text style={styles.inputText}>Projeto</Text>
                         </View>
 
                         <View style={styles.inputMeio}>
                             <TextInput
                                 style={styles.input}
+                                onChangeText={tema => this.setState({tema})}
                             />
                             <TextInput
                                 style={styles.input}
-                            />
-                            <TextInput
-                                style={styles.input}
+                                onChangeText={projeto => this.setState({projeto})}
                             />
                         </View>
                     </View>
 
                     <View style={styles.btnInput}>
-                        <TouchableOpacity style={styles.btnCadastrar}>
+                        <TouchableOpacity style={styles.btnCadastrar} onPress={this.cadastro}>
                             <Text style={styles.btnText}>cadastrar</Text>
                         </TouchableOpacity>
                     </View>

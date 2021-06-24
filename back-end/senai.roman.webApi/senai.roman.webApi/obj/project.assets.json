@@ -7744,19 +7744,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\LuanaNicoledaSilva\\.nuget\\packages\\": {}
+    "C:\\Users\\Gigio\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\LuanaNicoledaSilva\\Desktop\\Projeto_ROMAM\\back-end\\senai.roman.webApi\\senai.roman.webApi\\senai.roman.webApi.csproj",
+      "projectUniqueName": "C:\\Users\\Gigio\\Desktop\\SENAI\\Projeto_ROMAN\\back-end\\senai.roman.webApi\\senai.roman.webApi\\senai.roman.webApi.csproj",
       "projectName": "senai.roman.webApi",
-      "projectPath": "C:\\Users\\LuanaNicoledaSilva\\Desktop\\Projeto_ROMAM\\back-end\\senai.roman.webApi\\senai.roman.webApi\\senai.roman.webApi.csproj",
-      "packagesPath": "C:\\Users\\LuanaNicoledaSilva\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\LuanaNicoledaSilva\\Desktop\\Projeto_ROMAM\\back-end\\senai.roman.webApi\\senai.roman.webApi\\obj\\",
+      "projectPath": "C:\\Users\\Gigio\\Desktop\\SENAI\\Projeto_ROMAN\\back-end\\senai.roman.webApi\\senai.roman.webApi\\senai.roman.webApi.csproj",
+      "packagesPath": "C:\\Users\\Gigio\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Gigio\\Desktop\\SENAI\\Projeto_ROMAN\\back-end\\senai.roman.webApi\\senai.roman.webApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\LuanaNicoledaSilva\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Gigio\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7839,7 +7839,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.204\\RuntimeIdentifierGraph.json"
       }
     }
   }

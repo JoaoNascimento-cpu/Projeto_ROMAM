@@ -1,17 +1,46 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { Component } from 'react';
-import { StyleSheet, Image, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Image, Text, TouchableOpacity, View, ScrollView } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import api from '../services/api';
 
 export default class Home extends Component{
     constructor(props)
     {
         super(props);
         this.state = {
-
+            listaTarefa : []
         }
     }
 
-    logout = () => {
-        this.props.navigation.navigate('login')
+    listaTarefa = async () => {
+        const valorToken = await AsyncStorage.getItem('userToken');
+
+        const resp = await api.get('/projetos/listartodas',
+          {
+              headers: {
+                  'Authorization' : 'Bearer ' + valorToken
+              }
+          }  
+        );
+        const dadosApi = resp.data;
+        this.setState({listaTarefa : dadosApi})
+    }
+
+    componentDidMount(){
+        this.listaTarefa();
+    }
+
+    logout = async () => {
+
+        try {
+            
+            await AsyncStorage.removeItem('userToken');
+            this.props.navigation.navigate('login');
+
+        } catch (error) {
+            console.warn(error)
+        }
     }
 
   render()
@@ -47,25 +76,37 @@ export default class Home extends Component{
                 <View style={styles.bemVindo}>
                     <Text style={styles.bemVindoText}>bem vindo</Text>
                 </View>
-                <View style={styles.bemVindo}>
-                    <Text style={styles.bemVindoText}>{"User"}</Text>
-                </View>
             </View>
 
             <View style={styles.TarefaHome}>
                 <Text style={styles.tarefaText}>tarefas</Text>
             </View>
 
-            <View style={styles.listaTarefa}>
-                <Text style={styles.listaTarefaText}>{'{tema}'}</Text>
-                <Text style={styles.listaTarefaText}>{'{tarefa}'}</Text>
-                <Text style={styles.listaTarefaText}>{'{professor}'}</Text>
-                <View style={styles.linhaTarefa}></View>
-            </View>
+            <ScrollView>
+
+                <FlatList
+                    data={this.state.listaTarefa}
+                    keyExtractor={ item => item.projeto1}
+                    renderItem={this.renderItem}
+                />
+
+            </ScrollView>
+        
         </View>
             
       );
-  }
+
+    }
+    
+    renderItem = ({ item }) => (
+        <ScrollView style={styles.listaTarefa}>
+                <Text style={styles.listaTarefaText}>PROJETO: {item.projeto1}</Text>
+                <Text style={styles.listaTarefaText}>TEMA: {item.idTemaNavigation.tituloTema}</Text>
+                <Text style={styles.listaTarefaText}>PROFESSOR: {item.idUsuarioNavigation.nomeUsuario}</Text>
+                <View style={styles.linhaTarefa}></View>
+            </ScrollView>
+    );
+ 
 }
 
 const styles = StyleSheet.create({
@@ -74,7 +115,6 @@ const styles = StyleSheet.create({
     },
 
     headerHome: {
-        flex: 0.12,
         backgroundColor: 'black',
         flexDirection: 'row',
     },
@@ -120,13 +160,12 @@ const styles = StyleSheet.create({
     },
 
     bemVindoHome: {
-        flex: 0.2,
         marginTop: 20,
+        marginBottom: 20,
         // backgroundColor: 'red'
     },  
 
     bemVindo: {
-        flex: 0.5,
         // backgroundColor: 'blue',
         alignItems: 'center',
         justifyContent: 'center'
@@ -135,13 +174,12 @@ const styles = StyleSheet.create({
     bemVindoText: {
         color: 'black',
         fontFamily: 'Arial',
-        fontSize: 40,
+        fontSize: 35,
         textTransform: 'uppercase',
     },
 
     TarefaHome: {
-        flex: 0.08,
-        marginTop: 20,
+        marginBottom: 20,
         backgroundColor: 'rgba(0, 183, 100, 1)',
         justifyContent: 'center',
         alignItems : 'center',
@@ -155,20 +193,19 @@ const styles = StyleSheet.create({
     },
 
     listaTarefa: {
-        marginTop: 10,
         flex: 'auto',
+        marginBottom: 15,
         // backgroundColor: 'red'
     },
 
     listaTarefaText: {
-        marginTop: 10,
+        marginBottom: 3,
         marginLeft: 30,
         fontFamily: 'Arial',
-        fontSize: 25,
+        fontSize: 18,
     },
 
     linhaTarefa: {
-        marginTop: 20,
         margin: 'auto',
         width: 400,
         height: 2,

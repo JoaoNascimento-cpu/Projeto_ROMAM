@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {ImageBackground, TouchableOpacity ,TextInput, Image, StyleSheet, Text, View } from 'react-native';
 import { color } from 'react-native-reanimated';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from '../services/api';
 
 export default class Login extends Component{
     constructor(props)
@@ -14,7 +16,28 @@ export default class Login extends Component{
 
   login = async () =>
   {
-    this.props.navigation.navigate('main')
+
+    console.warn(this.state.email + ' ' + this.state.senha);
+
+    try {
+
+      const resp = await api.post('/login', {
+        email : this.state.email,
+        senha : this.state.senha,
+      });
+
+      const token = resp.data.token;
+
+      console.warn(token);
+
+      await AsyncStorage.setItem('userToken', token)
+      
+      this.props.navigation.navigate('main')
+
+    } catch (error) {
+      console.warn(error);
+    }
+
   }
 
   render()
